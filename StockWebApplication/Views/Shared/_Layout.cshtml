@@ -8,6 +8,8 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/themes/base/css")
+    @Styles.Render("~/Content/ui-core")
+    @RenderSection("styles", false)
 </head>
 <body>
     <div id="userSettings">
@@ -18,7 +20,7 @@
         @RenderBody()
     </div>
 
-    <footer>
+    @*<footer>
         <nav>
             <ul id="menu">
                 <li>@Html.ActionLink("Todo List", "Index", "Home", new { area = "" }, null)</li>
@@ -27,11 +29,20 @@
         </nav> 
         <p>Learn more about <a href="http://go.microsoft.com/fwlink/?LinkId=273732">Single Page Applications</a></p>
         <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
-    </footer>
+    </footer>*@
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
+
+    <!-- other libraries -->
+    <script type="text/javascript" src="@Url.Content("~/Scripts/moment.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/qTip/jquery.qtip.min.js")"></script>
+
+    @Scripts.Render("~/bundles/knockout")
+    @Scripts.Render("~/bundles/bindingHandlers")
     @Scripts.Render("~/bundles/ajaxlogin")
+    @Scripts.Render("~/bundles/customComponents")
     @RenderSection("scripts", required: false)
 </body>
 </html>

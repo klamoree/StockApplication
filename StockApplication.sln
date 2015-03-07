@@ -7,6 +7,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{83FA9991-A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockWebApplication", "StockWebApplication\StockWebApplication.csproj", "{1844DB55-7B60-421B-919E-8FE828604B78}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stock.Data", "Stock.Data\Stock.Data.csproj", "{0334E885-7FE9-4068-8728-8D44FC134AE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stock.Gateways", "Stock.Gateways\Stock.Gateways.csproj", "{D79E36B2-9E33-46FE-A651-3676A8A15FD1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{C13479CF-52E5-4F54-BA21-0E7669F8D349}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,8 +26,20 @@ Global
 		{1844DB55-7B60-421B-919E-8FE828604B78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1844DB55-7B60-421B-919E-8FE828604B78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1844DB55-7B60-421B-919E-8FE828604B78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0334E885-7FE9-4068-8728-8D44FC134AE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0334E885-7FE9-4068-8728-8D44FC134AE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0334E885-7FE9-4068-8728-8D44FC134AE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0334E885-7FE9-4068-8728-8D44FC134AE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D79E36B2-9E33-46FE-A651-3676A8A15FD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D79E36B2-9E33-46FE-A651-3676A8A15FD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D79E36B2-9E33-46FE-A651-3676A8A15FD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D79E36B2-9E33-46FE-A651-3676A8A15FD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0334E885-7FE9-4068-8728-8D44FC134AE1} = {83FA9991-AE2C-4D47-BE6D-1AE526DAB653}
+		{D79E36B2-9E33-46FE-A651-3676A8A15FD1} = {83FA9991-AE2C-4D47-BE6D-1AE526DAB653}
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,117 @@
+﻿@{
+    ViewBag.Title = "Stocks";
+}
+
+@section styles {
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/qTip/jquery.qtip.min.css")">
+}
+<div id="wow">
+    <div data-bind="with: currentStock">
+        @*<stock-widget params="name: name, symbol: symbol, lastPrice: lastPrice, high: high, low: low, open: open"></stock-widget>*@
+        <div style="width: 400px; border: 1px solid #ddd; border-radius: 5px; margin: 15px; padding: 5px;">
+            <table class="table">
+                <caption>
+                    <span data-bind="text: name"></span>&nbsp;(<span data-bind="text: symbol"></span>)
+                    <span data-bind="click: $parent.refreshCurrentStock" style="float:right; margin-right: 10px; cursor: pointer;">
+                        <i class="fa fa-refresh" style="color: rgb(52, 203, 52)" data-bind="css: { 'fa-spin': $parent.isRefreshing }"></i>
+                    </span>   
+                </caption>                                                                                              
+                <thead>
+                    <tr>
+                        <td>Last Price</td>                                                                             
+                        <td>High</td>                                                                                   
+                        <td>Low</td>                                                                                    
+                        <td>Open</td>                                                                                   
+                    </tr>                                                                                               
+                </thead>                                                                                                
+                <tbody>
+                    <tr>
+                        <td data-bind="currency: lastPrice"></td>                                                           
+                        <td data-bind="currency: high"></td>
+                        <td data-bind="currency: low"></td>
+                        <td data-bind="currency: open"></td>                                                                
+                    </tr>                                                                                               
+                </tbody>                                                                                                
+            </table>                                                                                                    
+        </div>
+    </div>
+
+    <div data-bind="with: currentOption" style="width: 600px; border: 1px solid #ddd; border-radius: 5px; margin: 15px; padding: 5px;">
+        <div data-bind="slideVisible: !(currentPrice() > 0)">
+            Enter stock ticker: <input type="text" data-bind="value: symbol" />
+            <button type="button" class="btn btn-primary" data-bind="click: $parent.getOptionStock">Lookup</button>
+        </div>
+        <div data-bind="slideVisible: currentPrice() > 0" style="display: none;">
+            <div class="form-group">
+                <label>Option Type:</label>
+                <select data-bind="options: $parent.optionTypes, optionsText: 'key', optionsValue: 'value', value: optionType" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label>Strike Price:</label>
+                <div class="input-group">
+                    <div class="input-group-addon">$</div>
+                    <input type="text" class="form-control" data-bind="value: strikePrice" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Option Price:</label>
+                <div class="input-group">
+                    <div class="input-group-addon">$</div>
+                    <input type="text" class="form-control" data-bind="value: optionPrice" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Expiration Date:</label>
+                <input type="text" data-bind="datepicker: expirationDate" />
+            </div>
+            <div class="form-group">
+                <label>Quantity:</label>
+                <input type="number" data-bind="value: quantity" />
+            </div>
+            <div style="padding: 5px;">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td>Exposed</td>
+                            <td>Volatility</td>
+                            <td>BE Price</td>
+                            <td>BE Volatility</td>
+                            <td>Expiration Gain</td>
+                            <td>Expiration Gain %</td>
+                            <td data-bind="visible: optionType() == 0">Exercise Gain</td>
+                            <td data-bind="visible: optionType() == 0">Exercise Gain %</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-bind="currency: exposed"></td>
+                            <td data-bind="percentage: strikeVolatility"></td>
+                            <td data-bind="currency: breakEvenPrice"></td>
+                            <td data-bind="percentage: breakEvenVolatility"></td>
+                            <td data-bind="currency: expirationGain"></td>
+                            <td data-bind="percentage: expirationGainPercentage"></td>
+                            <td data-bind="visible: optionType() == 0, currency: exercisedGain">Exercise Gain</td>
+                            <td data-bind="visible: optionType() == 0, percentage: exercisedGainPercentage">Exercise Gain %</td>
+                        </tr>
+                    </tbody>
+                </table>  
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <!-- site -->
+    <script type="text/javascript" src="@Url.Content("~/Scripts/site/site.stock.js")"></script>
+
+    <!-- components -->
+    <script type="text/javascript" src="@Url.Content("~/Scripts/components/site.components.stock.js")"></script>
+
+    <script>
+        $(function () {
+            site.stock.init();
+
+        });
+    </script>
+}
