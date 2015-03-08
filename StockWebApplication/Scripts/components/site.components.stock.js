@@ -114,6 +114,20 @@ site.components = site.components || {};
             }
             return 0;
         });
+
+
+        self.toModel = function () {
+            var model = {
+                //OptionID: 0,
+                OptionTypeID: self.optionType(),
+                StockPrice: self.currentPrice(),
+                StrikePrice: self.strikePrice(),
+                OptionPrice: self.optionPrice(),
+                Quantity: self.quantity(),
+                ExpirationDate: self.expirationDate()
+            }
+            return model;
+        };
     };
 
     (function (vm) {
@@ -122,7 +136,9 @@ site.components = site.components || {};
         vm.currentOption = ko.observable(new stock.OptionModel());
         vm.optionTypes = ko.observableArray([]);
 
+        //ui
         vm.isRefreshing = ko.observable(false);
+        vm.showSuccess = ko.observable(false);
 
         vm.init = function (controlId) {
             vm.boundedControlId = controlId;
@@ -144,13 +160,6 @@ site.components = site.components || {};
             });
         };
 
-        vm.getOptionStock = function () {
-            site.stock.getQuote(vm.currentOption().symbol(), function (json) {
-                vm.loadCurrentStock(json);
-                vm.currentOption().currentPrice(vm.currentStock().lastPrice());
-            });
-        };
-
         vm.loadCurrentStock = function (markitJson) {
             vm.currentStock().markitLoad(markitJson);
         };
@@ -162,6 +171,30 @@ site.components = site.components || {};
                 vm.currentStock().markitLoad(json);
             });
         };
+
+        //option functions
+        vm.getOptionStock = function () {
+            site.stock.getQuote(vm.currentOption().symbol(), function (json) {
+                vm.loadCurrentStock(json);
+                vm.currentOption().currentPrice(vm.currentStock().lastPrice());
+            });
+        };
+
+        vm.cancelOption = function () {
+            vm.currentOption(new stock.OptionModel());
+        };
+
+        vm.submitOption = function () {
+            site.stock.submitOption(vm.currentOption().toModel(), function (result) {
+                vm.showSuccess(true);
+            });
+        };
+
+
+        //ui
+        vm.dismissSuccess = function () {
+            vm.showSuccess(false);
+        }
 
     })(stock.vm || (stock.vm = {}));
 })(site.components.stock || (site.components.stock = {}));

@@ -21,4 +21,13 @@ var site = site || {};
             }
         });
     };
+
+    stock.submitOption = function (data, callback) {
+        var url = window.submitOptionUrl;
+        $.post(url, data, function (result) {
+            if (callback) {
+                callback(result);
+            }
+        });
+    };
 })(site.stock || (site.stock = {}));

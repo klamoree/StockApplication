@@ -6,9 +6,15 @@
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/qTip/jquery.qtip.min.css")">
 }
 <div id="wow">
+    <div class="alert alert-success alert-dismissible" role="alert" data-bind="visible: showSuccess">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" data-bind="click: dismissSuccess">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <span>Option saved successfully.</span>
+    </div>
     <div data-bind="with: currentStock">
         @*<stock-widget params="name: name, symbol: symbol, lastPrice: lastPrice, high: high, low: low, open: open"></stock-widget>*@
-        <div style="width: 400px; border: 1px solid #ddd; border-radius: 5px; margin: 15px; padding: 5px;">
+        <div style="width: 450px; border: 1px solid #ddd; border-radius: 5px; margin: 15px; padding: 5px;">
             <table class="table">
                 <caption>
                     <span data-bind="text: name"></span>&nbsp;(<span data-bind="text: symbol"></span>)
@@ -36,7 +42,7 @@
         </div>
     </div>
 
-    <div data-bind="with: currentOption" style="width: 600px; border: 1px solid #ddd; border-radius: 5px; margin: 15px; padding: 5px;">
+    <div data-bind="with: currentOption" style="width: 825px; border: 1px solid #ddd; border-radius: 5px; margin: 15px; padding: 5px;">
         <div data-bind="slideVisible: !(currentPrice() > 0)">
             Enter stock ticker: <input type="text" data-bind="value: symbol" />
             <button type="button" class="btn btn-primary" data-bind="click: $parent.getOptionStock">Lookup</button>
@@ -45,6 +51,13 @@
             <div class="form-group">
                 <label>Option Type:</label>
                 <select data-bind="options: $parent.optionTypes, optionsText: 'key', optionsValue: 'value', value: optionType" class="form-control"></select>
+            </div>
+            <div class="form-group" data-bind="visible: optionType() == 0">
+                <label>Purchase Price:</label>
+                <div class="input-group">
+                    <div class="input-group-addon">$</div>
+                    <input type="text" class="form-control" data-bind="value: currentPrice" />
+                </div>
             </div>
             <div class="form-group">
                 <label>Strike Price:</label>
@@ -96,6 +109,8 @@
                     </tbody>
                 </table>  
             </div>
+            <button type="button" class="btn btn-danger" data-bind="click: $parent.cancelOption">Cancel</button>
+            <button type="button" class="btn btn-primary" data-bind="click: $parent.submitOption">Submit</button>
         </div>
     </div>
 </div>
@@ -109,9 +124,9 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/components/site.components.stock.js")"></script>
 
     <script>
+        window.submitOptionUrl = "@Url.Action("SubmitOption", "Stock")";
         $(function () {
             site.stock.init();
-
         });
     </script>
 }
